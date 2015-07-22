@@ -25,7 +25,7 @@ namespace ConsoleApplicationSimpleExample
             using (StackExchange.Profiling.MiniProfiler.Current.Step("Call Methods"))
             {
                 DoTheQuickWork();
-                DoTheSlowWork();
+                //DoTheSlowWork();
             }
 
             //Stop profiling and show results

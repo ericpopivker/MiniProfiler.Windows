@@ -8,30 +8,40 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // */
 
+using System;
 using StackExchange.Profiling;
 
 namespace MiniProfiler.Windows
 {
-    public class ConsoleProfilingProvider : BaseProfilerProvider
-    {
-        private StackExchange.Profiling.MiniProfiler _profiler;
+	public class ConsoleProfilingProvider : BaseProfilerProvider
+	{
+		private StackExchange.Profiling.MiniProfiler _profiler;
 
-        public override StackExchange.Profiling.MiniProfiler GetCurrentProfiler()
-        {
-            return _profiler;
-        }
+		public override StackExchange.Profiling.MiniProfiler GetCurrentProfiler()
+		{
+			return _profiler;
+		}
 
-        public override StackExchange.Profiling.MiniProfiler Start(ProfileLevel level)
-        {
-            _profiler = new StackExchange.Profiling.MiniProfiler(ConsoleProfiling.ProfilingUrl(), level);
-            SetProfilerActive(_profiler);
-            _profiler.User = ConsoleProfiling.CurrentUser();
-            return _profiler;
-        }
+		[Obsolete("Please use the Start(string sessionName) overload instead of this one. ProfileLevel is going away.")]
+		public override StackExchange.Profiling.MiniProfiler Start(ProfileLevel level, string sessionName = null)
+		{
+			return this.Start(sessionName);
+		}
 
-        public override void Stop(bool discardResults)
-        {
-            SaveProfiler(_profiler);
-        }
-    }
+		public override StackExchange.Profiling.MiniProfiler Start(string sessionName = null)
+		{
+			_profiler = new StackExchange.Profiling.MiniProfiler(ConsoleProfiling.ProfilingUrl());
+			SetProfilerActive(_profiler);
+
+			_profiler.User = ConsoleProfiling.CurrentUser();
+			return _profiler;
+		}
+
+
+
+		public override void Stop(bool discardResults)
+		{
+			SaveProfiler(_profiler);
+		}
+	}
 }
