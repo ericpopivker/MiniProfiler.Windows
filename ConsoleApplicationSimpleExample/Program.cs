@@ -15,43 +15,43 @@ using StackExchange.Profiling;
 
 namespace ConsoleApplicationSimpleExample
 {
-    internal class Program
-    {
-        private static void Main()
-        {
-            //Start profiling
-            ConsoleProfiling.Start();
+	internal class Program
+	{
+		private static void Main()
+		{
+			//Start profiling
+			ConsoleProfiling.Start();
 
-            using (StackExchange.Profiling.MiniProfiler.Current.Step("Call Methods"))
-            {
-                DoTheQuickWork();
-                //DoTheSlowWork();
-            }
+			using (StackExchange.Profiling.MiniProfiler.Current.Step("Call Methods"))
+			{
+				DoTheQuickWork();
+				DoTheSlowWork();
+			}
 
-            //Stop profiling and show results
-            Console.WriteLine(ConsoleProfiling.StopAndGetConsoleFriendlyOutputStringWithSqlTimings());
+			//Stop profiling and show results
+			Console.WriteLine(ConsoleProfiling.StopAndGetConsoleFriendlyOutputStringWithSqlTimings());
 
-            //Allow viewing of results
-            Console.WriteLine("... press 'Enter' to exit process ...");
-            Console.ReadLine();
-        }
+			//Allow viewing of results
+			Console.WriteLine("... press 'Enter' to exit process ...");
+			Console.ReadLine();
+		}
 
-        private static void DoTheQuickWork()
-        {
-            using (StackExchange.Profiling.MiniProfiler.Current.Step("DoTheQuickWork"))
-            {
-                Thread.Sleep(100);
-                Console.WriteLine(" ... done quick work ... ");
-            }
-        }
+		private static void DoTheQuickWork()
+		{
+			using (StackExchange.Profiling.MiniProfiler.Current.Step("DoTheQuickWork"))
+			{
+				Thread.Sleep(100);
+				Console.WriteLine(" ... done quick work ... ");
+			}
+		}
 
-        private static void DoTheSlowWork()
-        {
-            using (StackExchange.Profiling.MiniProfiler.Current.Step("DoTheSlowWork"))
-            {
-                Thread.Sleep(5000);
-                Console.WriteLine(" ... done slow work ... ");
-            }
-        }
-    }
+		private static void DoTheSlowWork()
+		{
+			using (StackExchange.Profiling.MiniProfiler.Current.Step("DoTheSlowWork"))
+			{
+				Thread.Sleep(5000);
+				Console.WriteLine(" ... done slow work ... ");
+			}
+		}
+	}
 }
