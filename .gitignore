@@ -20,3 +20,10 @@ _compareTemp
 _notes
 aspnet_client
 httpd.parse.errors
+
+
+# Ignore Nuget. From: https://docs.nuget.org/consume/package-restore
+*.nupkg
+**/packages/*
+!**/packages/build/
+#!**/packages/repositories.config
